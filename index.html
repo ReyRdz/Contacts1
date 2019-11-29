@@ -1,166 +1,20 @@
-<!DOCTYPE html>
 <html>
-<head>
-<title>Ejercicio 14-1</title>
-<meta http-equiv="Content-type" content="text/html;
-charset=utf-8">
-<meta name="viewport" id="viewport"
-content="width=device-width, height=device-height,
-initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"
-/>
-<script type="text/javascript" charset="utf-8"
-src="jquery.js"></script>
-<script type="text/javascript" charset="utf-8"
-src="phonegap.js"></script>
-<script type="text/javascript" charset="utf-8">
-
-
-{
-"FullName": "Michael Palin",
-"LastName": "Palin",
-"FirstName": "Michael",
-"EmailAddress": "michael@montypython.com",
-"OfficePhone": "330.123.4567",
-"MobilePhone": "330.987.6543"
-}
-
-
-function addContact(contactInfo) {
-//Create a new contact object
-var contact = navigator.contacts.create();
-//Populate the contact object with values
-contact.displayName = contactInfo.FullName;
-contact.nickname = contactInfo.FullName;
-//Populate the Contact's Name entries
-var tmpName = new ContactName();
-tmpName.givenName = contactInfo.FirstName;
-tmpName.familyName = contactInfo.LastName;
-tmpName.formatted = contactInfo.FullName;
-//Then add the name object to the contact object
-contact.name = tmpName;
-//Populate Phone Number Entries by creating and populating
-//an array of phone number information
-var phoneNums = [2];
-phoneNums[0] = new ContactField('work',
-contactInfo.OfficePhone, false);
-phoneNums[1] = new ContactField('mobile',
-contactInfo.MobilePhone, true);
-contact.phoneNumbers = phoneNums;
-//Populate Email Address the same way that you did the
-//phone numbers
-var emailAddresses = [1];
-emailAddresses[0] = new ContactField('home',
-contactInfo.EmailAddress, true);
-contact.emails = emailAddresses;
-// save the contact object to the device's contact database
-contact.save(onContactSaveSuccess, onContactSaveError);
-}
-
-var contact = navigator.contacts.create({displayName:
-'Michael Palin', nickname: 'Mike', name: {givenName:
-'Michael', familyName: 'Palin'}});
-contact.save(onContactSaveSuccess, onContactSaveError);
-
-function onContactSaveSuccess() {
-alert(contactInfo.FullName + " was successfully saved to the device contacts database");
-}
-
-function onContactSaveError(e) {
-var msgText;
-//Now build a message string based upon the error
-//returned by the API
-switch(e.code) {
-case ContactError.UNKNOWN_ERROR:
-msgText = "An Unknown Error was reported while saving the contact.";
-break;
-case ContactError.INVALID_ARGUMENT_ERROR:
-msgText = "An invalid argument was used with the Contact API.";
-break;
-case ContactError.TIMEOUT_ERROR:
-msgText = "Timeout Error.";
-break;
-case ContactError.PENDING_OPERATION_ERROR:
-msgText = "Pending Operation Error.";
-break;
-case ContactError.IO_ERROR:
-msgText = "IO Error.";
-break;
-case ContactError.NOT_SUPPORTED_ERROR:
-msgText = "Not Supported Error.";
-break;
-case ContactError.PERMISSION_DENIED_ERROR:
-msgText = "Permission Denied Error.";
-break;
-default:
-//Create a generic response, just in case the
-// switch fails
-msgText = "Unknown Error (" + e.code + ")";
-}
-//Now tell the user what happened
-navigator.notification.alert(msgText, null,
-"Contact Save Error");
-}
-
-function searchContacts() {
-//Get the search string from the page
-var searchStr =
-document.getElementById("editSearch").value;
-//Figure out which search option is selected
-var searchScope =
-document.getElementById("searchScope").selectedIndex;
-//Then populate searchOptions with the list of fields being
-//searched
-var contactFields = [];
-switch(searchScope) {
-case 1:
-//Return just name fields
-contactFields = ['displayName', 'name', 'nickname'];
-break;
-case 2:
-//Return address fields
-contactFields = ['name', 'streetAddress', 'locality',
-'region', 'postalCode', 'country'];
-break;
-case 3:
-//Return name and contents of the Notes field
-contactFields = ['name', 'note'];
-break;
-default:
-//return all contact fields
-contactFields = ['*'];
-}
-//Populate the search options object
-var searchOptions = { filter : searchStr, multiple : true };
-//Execute the search
-navigator.contacts.find(contactFields,
-onContactSearchSuccess, onContactSearchError, searchOptions);
-}
-
-if(contacts[i].displayName == null) {
-theList += '<li><a onclick="showContact(' + i + ');">' +
-contacts[i].name.familyName + ", " +
-contacts[i].name.givenName + '</a></li>';
-} else {
-theList += '<li><a onclick="showContact(' + i + ');">' +
-contacts[i].displayName + '</a></li>';
-}
-
-//Show all of the contact fields
-dt = "<hr />";
-for(myKey in contact) {
-dt += "Contact[" + myKey + "] = " + contact[myKey] + "<br />";
-}
-$('#detailContent').html(dt);
-
-
-
-
-</script>
-</head>
-<body onload="onBodyLoad()">
-<h1>Contactos</h1>
-<p id="contactInfo"></p>
-<input type="search" id="editSearch" />
-</body>
-</body>
+  <head>
+    <title>Contact Example</title>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    // Wait for device API libraries to load
+    document.addEventListener("deviceready", onDeviceReady, false);
+    // device APIs are available
+    function onDeviceReady() {
+        var myContact = navigator.contacts.create({"displayName": "Test User"});
+        myContact.note = "This contact has a note.";
+        console.log("The contact, " + myContact.displayName + ", note: " + myContact.note);
+    }
+    </script>
+  </head>
+  <body>
+    <h1>Example</h1>
+    <p>Create Contact</p>
+  </body>
 </html>
