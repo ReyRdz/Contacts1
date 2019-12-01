@@ -2,13 +2,16 @@
 <html>
   <head>
     <title>Contact Example</title>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"/>
+
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8">
+
     // Wait for device API libraries to load
+    //
     document.addEventListener("deviceready", onDeviceReady, false);
+
     // device APIs are available
+    //
     function onDeviceReady() {
         // create
         var contact = navigator.contacts.create();
@@ -18,37 +21,48 @@
         name.givenName = "Jane";
         name.familyName = "Doe";
         contact.name = name;
+
         // save
         contact.save(onSaveSuccess,onSaveError);
+
         // clone
-       // var clone = contact.clone();
-        //clone.name.givenName = "John";
-       // console.log("Original contact name = " + contact.name.givenName);
-       // console.log("Cloned contact name = " + clone.name.givenName);
+        var clone = contact.clone();
+        clone.name.givenName = "John";
+        console.log("Original contact name = " + contact.name.givenName);
+        console.log("Cloned contact name = " + clone.name.givenName);
+
         // remove
-       // contact.remove(onRemoveSuccess);
+        contact.remove(onRemoveSuccess,onRemoveError);
     }
+
     // onSaveSuccess: Get a snapshot of the current contacts
-    function onSaveSuccess(contacts) {
+    //
+    function onSaveSuccess(contact) {
         alert("Save Success");
     }
+
     // onSaveError: Failed to get the contacts
+    //
     function onSaveError(contactError) {
-        alert("Error1 = " + contactError.code);
+        alert("Error = " + contactError.code);
     }
+
     // onRemoveSuccess: Get a snapshot of the current contacts
+    //
     function onRemoveSuccess(contacts) {
         alert("Removal Success");
     }
+
     // onRemoveError: Failed to get the contacts
+    //
     function onRemoveError(contactError) {
-        alert("Error2 = " + contactError.code);
+        alert("Error = " + contactError.code);
     }
-  </script>
+
+    </script>
   </head>
-  
   <body>
     <h1>Example</h1>
-    <p>Contacto Agregado</p>
+    <p>Find Contacts</p>
   </body>
 </html>
