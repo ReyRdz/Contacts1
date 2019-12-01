@@ -10,12 +10,12 @@
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
         var contact = navigator.contacts.create();
-        contact.displayName = "Plumber";
-        contact.nickname = "Plumber";                
+        contact.displayName = "Rey";
+        contact.nickname = "Rodriguez";                
         var name = new ContactName();
-        name.givenName = "Jane";
-        name.familyName = "Doe";
-        contact.name = name;
+        name.givenName = "Reymundo";
+        name.familyName = "Rodriguez";
+        //contact.name = name;
         contact.save(onSaveSuccess,onSaveError);}
     function onSaveSuccess(contact) {
         alert("Save Success");}
