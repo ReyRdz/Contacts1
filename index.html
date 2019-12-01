@@ -8,9 +8,7 @@
     <script type="text/javascript" charset="utf-8">
 
     document.addEventListener("deviceready", onDeviceReady, false);
-
     function onDeviceReady() {
-     
         var contact = navigator.contacts.create();
         contact.displayName = "Plumber";
         contact.nickname = "Plumber";                
@@ -18,18 +16,11 @@
         name.givenName = "Jane";
         name.familyName = "Doe";
         contact.name = name;
-
-        contact.save(onSaveSuccess,onSaveError);
-    }
-
-
+        contact.save(onSaveSuccess,onSaveError);}
     function onSaveSuccess(contact) {
-        alert("Save Success");
-    }
-
+        alert("Save Success");}
     function onSaveError(contactError) {
-        alert("Error = " + contactError.code);
-    }
+        alert("Error = " + contactError.code);}
 
     </script>
   </head>
