@@ -31,8 +31,6 @@
         console.log("Original contact name = " + contact.name.givenName);
         console.log("Cloned contact name = " + clone.name.givenName);
 
-        // remove
-        contact.remove(onRemoveSuccess,onRemoveError);
     }
 
     // onSaveSuccess: Get a snapshot of the current contacts
@@ -44,18 +42,6 @@
     // onSaveError: Failed to get the contacts
     //
     function onSaveError(contactError) {
-        alert("Error = " + contactError.code);
-    }
-
-    // onRemoveSuccess: Get a snapshot of the current contacts
-    //
-    function onRemoveSuccess(contacts) {
-        alert("Removal Success");
-    }
-
-    // onRemoveError: Failed to get the contacts
-    //
-    function onRemoveError(contactError) {
         alert("Error = " + contactError.code);
     }
 
